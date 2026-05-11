@@ -1,3 +1,4 @@
 transitexpansionpack/bin/
-packages
-.vs
+transitexpansionpack/obj/
+packages/
+.vs/
