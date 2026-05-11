@@ -1,9 +1,0 @@
-C:\Users\jessie\source\repos\transitexpansion\transitexpansion\bin\Debug\transitexpansion.dll
-C:\Users\jessie\source\repos\transitexpansion\transitexpansion\bin\Debug\transitexpansion.pdb
-C:\Users\jessie\source\repos\transitexpansion\transitexpansion\bin\Debug\ScriptHookVDotNet2.dll
-C:\Users\jessie\source\repos\transitexpansion\transitexpansion\bin\Debug\ScriptHookVDotNet2.xml
-C:\Users\jessie\source\repos\transitexpansion\transitexpansion\obj\Debug\transitexpansion.csproj.AssemblyReference.cache
-C:\Users\jessie\source\repos\transitexpansion\transitexpansion\obj\Debug\transitexpansion.csproj.CoreCompileInputs.cache
-C:\Users\jessie\source\repos\transitexpansion\transitexpansion\obj\Debug\transite.61433493.Up2Date
-C:\Users\jessie\source\repos\transitexpansion\transitexpansion\obj\Debug\transitexpansion.dll
-C:\Users\jessie\source\repos\transitexpansion\transitexpansion\obj\Debug\transitexpansion.pdb
