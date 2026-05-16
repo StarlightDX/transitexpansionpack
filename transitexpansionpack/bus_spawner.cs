@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using GTA;
 using GTA.Math;
 using GTA.Native;
+using System.IO;
 
 
 public class TransitExpansionPackSpawner : Script
@@ -40,12 +41,17 @@ public class TransitExpansionPackSpawner : Script
 
     private List<VehicleSpawnPoint> spawnPoints = new List<VehicleSpawnPoint>();
     private List<VehicleData> vehicles = new List<VehicleData>();
-    private float spawnDistance = 300f;
-    private float despawnDistance = 240f;
+    private float spawnDistance;
+    private float despawnDistance;
+//    private float spawnDistance = 300f;
+//    private float despawnDistance = 340f;
 
     public TransitExpansionPackSpawner()
     {
         Tick += OnTick;
+
+        LoadSettings();
+
 
         // CVehicles
 
@@ -634,7 +640,7 @@ public class TransitExpansionPackSpawner : Script
                 ModelName = "citybus1",
                 Plate = "66ZRV902",
                 PrimaryLivery = 0,
-                RoofLivery = 18,
+                RoofLivery = 19,
                 Mods = new Dictionary<VehicleMod, int>(),
                 Extras = new List<int> { 0 },
                 Turbo = false
@@ -666,7 +672,7 @@ public class TransitExpansionPackSpawner : Script
                 ModelName = "citybus1",
                 Plate = "66ZRV911",
                 PrimaryLivery = 0,
-                RoofLivery = 18,
+                RoofLivery = 19,
                 Mods = new Dictionary<VehicleMod, int>(),
                 Extras = new List<int> { 0 },
                 Turbo = false
@@ -937,10 +943,46 @@ public class TransitExpansionPackSpawner : Script
 
     }
 
+    // Configurable spawn distances for hardware variability
+
+    private bool spawnerEnabled = true;
+
+    private void LoadSettings()
+    {
+        string iniPath = Path.Combine("scripts", "transitexpansionpack.ini");
+
+        ScriptSettings config = ScriptSettings.Load(iniPath);
+
+        spawnerEnabled = config.GetValue("Spawner", "Enabled", true);
+
+        spawnDistance = Math.Max(
+            10f,
+            config.GetValue("Spawner", "SpawnDistance", 120f)
+        );
+
+        despawnDistance = Math.Max(
+            spawnDistance + 10f,
+            config.GetValue("Spawner", "DespawnDistance", 180f)
+        );
+    }
+
     private void OnTick(object sender, EventArgs e)
     {
-        Vector3 playerPos = Game.Player.Character.Position;
+        if (!spawnerEnabled)
+        {
+            foreach (VehicleSpawnPoint sp in spawnPoints)
+            {
+                if (sp.SpawnedVehicle != null)
+                {
+                    sp.SpawnedVehicle.Delete();
+                    sp.SpawnedVehicle = null;
+                }
+            }
 
+            return;
+        }
+
+        Vector3 playerPos = Game.Player.Character.Position;
 
         foreach (VehicleSpawnPoint sp in spawnPoints)
         {
@@ -1007,6 +1049,7 @@ public class TransitExpansionPackSpawner : Script
                 sp.SpawnedVehicle.Delete();
                 sp.SpawnedVehicle = null;
             }
+
         }
     }
 }
